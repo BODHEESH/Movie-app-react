@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import MoviesList from "./MoviesList";
 import Search from "./Search";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function MovieForm() {
   const [movieName, setMovieName] = useState("");
@@ -18,10 +21,10 @@ function MovieForm() {
     event.preventDefault();
 
     if (!durationPattern.test(movieDuration)) {
-      setError("Please enter a valid duration in the format of xh or ym, e.g., 132m or 2.5h")
-      setTimeout(()=>{
-        setError("")
-      },3000)
+      toast.error('Please enter a valid duration in the format of xh or ym, e.g., 132m or 2.5h', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
       return;
     }
 
@@ -55,6 +58,7 @@ function MovieForm() {
 
   return (
     <div className="flex items-center justify-center " >
+      <ToastContainer />
       <div className="w-1/2 max-w-md mx-1">
         <form className="bg-white shadow-lg rounded px-8 mt-48 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
           <div className="mb-4">
